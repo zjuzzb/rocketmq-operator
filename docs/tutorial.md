@@ -6,6 +6,29 @@
 
 ## Installation 
 
+### Download and prepare for the installation
+
+#### 0) Download the release
+
+```bash
+curl -O -L https://github.com/huanwei/rocketmq-operator/archive/v0.1.1.tar.gz
+
+```
+
+#### 1) Unzip the release
+
+```bash
+tar -xzf v0.1.1.tar.gz
+
+```
+
+#### 2) Move to the directory
+
+```
+cd rocketmq-operator-0.1.1/
+
+```
+
 ### Create a namespace
 
 ```
@@ -23,7 +46,7 @@ kubectl create -f deploy/00-namesrv.yaml
 
 ```
 
-#### 1) Create the CRD with kind BrokerCluster.
+#### 1) Create the CRD with kind BrokerCluster
 
 ```
 kubectl create -f deploy/01-resources.yaml
@@ -133,4 +156,33 @@ DefaultCluster    mybrokercluster-1-1     0     192.168.122.146:10911  V4_3_0   
 
 ```
 
+## Uninstall
+
+### Delete the broker cluster
+
+Delete a cluster with 2 masters:
+
+```
+kubectl delete -f deploy/04-cluster-2m.yaml
+
+```
+
+OR:
+
+Delete a cluster with 2 masters and 2 slaves:
+
+```
+kubectl delete -f deploy/04-cluster-2m-2s.yaml
+
+```
+
+### Delete other components
+
+```
+kubectl delete -f deploy/03-deploymentWithConfig.yaml
+kubectl delete -f deploy/02-rbac.yaml
+kubectl delete -f deploy/01-resources.yaml
+kubectl delete -f deploy/00-namesrv.yaml
+kubectl delete ns rocketmq-operator
+```
 
